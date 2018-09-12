@@ -166,14 +166,13 @@ class PiwikCliInstall {
 		$result = Access::doAsSuperUser(function () use ($config_arr) {
 			return APISitesManager::getInstance()->addSite($config_arr['site_name'], $config_arr['site_url'], 0);
 		});
-		$trustedHosts = array(
-			$config_arr['base_domain']
-		);
+		$trustedHosts = isset($config_arr['trusted_hosts']) ? (array)$config_arr['trusted_hosts'] : array();
+        $trustedHosts[] = $config_arr['base_domain'];
 		if (($host = $this->extractHost(urldecode($config_arr['site_url']))) !== false) {
 			$trustedHosts[] = $host;
 		}
 		$general = Config::getInstance()->General;
-		$general['trusted_hosts'] = $trustedHosts;
+		$general['trusted_hosts'] = array_unique($trustedHosts);
 		Config::getInstance()->General = $general;
 		Config::getInstance()->forceSave();
 	}

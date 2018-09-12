@@ -6,6 +6,7 @@
     "site_name": "Sydney Morning Herald",
     "site_url": "http://www.smh.com.au",
     "base_domain": "domain.where.piwik.is.installed",
+    "trusted_hosts": [],
     "session_save_handler": "dbtable",
     "geo_provider": "geoip_pecl",
     "database": {
